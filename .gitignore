@@ -1,0 +1,8 @@
+node_modules
+deploy.bat
+.history
+package.json
+yarn.lock
+docs/.vuepress/config.js
+docs/note
+docs/README.md
