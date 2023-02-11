@@ -9,8 +9,13 @@
 module.exports = {
     base: '/blog/',
     title: 'Floyd的博客',
-    description: '前端学习笔记',
+    description: '前端、后端学习笔记',
     theme: 'reco',
+    locales: {
+        '/': {
+          lang: 'zh-CN'
+        }
+    },
     themeConfig: {
         lastUpdated: '上次更新',
         subSidebar: 'auto',
