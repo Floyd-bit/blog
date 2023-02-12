@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>1. 概述 | Floyd的博客</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="前端、后端学习笔记">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.193774b6.css" as="style"><link rel="preload" href="/blog/assets/js/app.bc444f20.js" as="script"><link rel="preload" href="/blog/assets/js/3.38bf7d9d.js" as="script"><link rel="preload" href="/blog/assets/js/1.be70e6c5.js" as="script"><link rel="preload" href="/blog/assets/js/32.088e9eb8.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.5af830c0.js"><link rel="prefetch" href="/blog/assets/js/11.a80482ba.js"><link rel="prefetch" href="/blog/assets/js/12.43f17c1e.js"><link rel="prefetch" href="/blog/assets/js/13.ddb49fa1.js"><link rel="prefetch" href="/blog/assets/js/14.cc7b552a.js"><link rel="prefetch" href="/blog/assets/js/15.88cacaaa.js"><link rel="prefetch" href="/blog/assets/js/16.33d06403.js"><link rel="prefetch" href="/blog/assets/js/17.b39e82b8.js"><link rel="prefetch" href="/blog/assets/js/18.44b9bef3.js"><link rel="prefetch" href="/blog/assets/js/19.6b06ee9d.js"><link rel="prefetch" href="/blog/assets/js/20.c565c507.js"><link rel="prefetch" href="/blog/assets/js/21.428258e7.js"><link rel="prefetch" href="/blog/assets/js/22.3a24e403.js"><link rel="prefetch" href="/blog/assets/js/23.a34c3a73.js"><link rel="prefetch" href="/blog/assets/js/24.74b7bfb7.js"><link rel="prefetch" href="/blog/assets/js/25.f11d8f78.js"><link rel="prefetch" href="/blog/assets/js/26.1117807c.js"><link rel="prefetch" href="/blog/assets/js/27.d0096d7a.js"><link rel="prefetch" href="/blog/assets/js/28.fdb84ecd.js"><link rel="prefetch" href="/blog/assets/js/29.09df0e10.js"><link rel="prefetch" href="/blog/assets/js/30.f3b733ff.js"><link rel="prefetch" href="/blog/assets/js/31.a58f3c2b.js"><link rel="prefetch" href="/blog/assets/js/33.3dcc97ea.js"><link rel="prefetch" href="/blog/assets/js/34.90ba1c78.js"><link rel="prefetch" href="/blog/assets/js/35.1d12135a.js"><link rel="prefetch" href="/blog/assets/js/36.8ac537f8.js"><link rel="prefetch" href="/blog/assets/js/37.d3f9c751.js"><link rel="prefetch" href="/blog/assets/js/38.e673b620.js"><link rel="prefetch" href="/blog/assets/js/39.e7889ede.js"><link rel="prefetch" href="/blog/assets/js/4.ea3d9a47.js"><link rel="prefetch" href="/blog/assets/js/40.7c1a4c65.js"><link rel="prefetch" href="/blog/assets/js/41.ad83aa65.js"><link rel="prefetch" href="/blog/assets/js/42.7f4d729d.js"><link rel="prefetch" href="/blog/assets/js/43.d491b419.js"><link rel="prefetch" href="/blog/assets/js/44.d3641257.js"><link rel="prefetch" href="/blog/assets/js/45.8016755e.js"><link rel="prefetch" href="/blog/assets/js/46.61d1ce61.js"><link rel="prefetch" href="/blog/assets/js/47.09286677.js"><link rel="prefetch" href="/blog/assets/js/48.ff720f96.js"><link rel="prefetch" href="/blog/assets/js/49.8d9d2d6e.js"><link rel="prefetch" href="/blog/assets/js/5.ac243248.js"><link rel="prefetch" href="/blog/assets/js/50.0051452e.js"><link rel="prefetch" href="/blog/assets/js/51.e58326f2.js"><link rel="prefetch" href="/blog/assets/js/52.3e491a0f.js"><link rel="prefetch" href="/blog/assets/js/53.3af0b3dc.js"><link rel="prefetch" href="/blog/assets/js/54.a3eb51fa.js"><link rel="prefetch" href="/blog/assets/js/55.b7c56062.js"><link rel="prefetch" href="/blog/assets/js/56.942836c9.js"><link rel="prefetch" href="/blog/assets/js/57.71e7587b.js"><link rel="prefetch" href="/blog/assets/js/58.ad71707c.js"><link rel="prefetch" href="/blog/assets/js/59.21646588.js"><link rel="prefetch" href="/blog/assets/js/6.7603e440.js"><link rel="prefetch" href="/blog/assets/js/60.af5dbed1.js"><link rel="prefetch" href="/blog/assets/js/61.60b4cc0b.js"><link rel="prefetch" href="/blog/assets/js/62.dcc32d17.js"><link rel="prefetch" href="/blog/assets/js/63.c4d00a70.js"><link rel="prefetch" href="/blog/assets/js/64.fd9fc18e.js"><link rel="prefetch" href="/blog/assets/js/65.4285cc58.js"><link rel="prefetch" href="/blog/assets/js/66.4b721daa.js"><link rel="prefetch" href="/blog/assets/js/67.1227adb6.js"><link rel="prefetch" href="/blog/assets/js/7.b6b0c886.js"><link rel="prefetch" href="/blog/assets/js/8.bceba822.js"><link rel="prefetch" href="/blog/assets/js/9.05290352.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.193774b6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>Floyd的博客</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>前端、后端学习笔记</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><!----> <span class="site-name">Floyd的博客</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link"><i class="undefined"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      收藏文章
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  冴羽博客
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/yinguangyao/blog" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  null博客
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="http://caibaojian.com/interview-map/frontend/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  前端面试之道
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CavsZhouyou/Front-End-Interview-Notebook" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  前端面试复习笔记
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><!----> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>46</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>4</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link"><i class="undefined"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      收藏文章
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  冴羽博客
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/yinguangyao/blog" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  null博客
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="http://caibaojian.com/interview-map/frontend/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  前端面试之道
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CavsZhouyou/Front-End-Interview-Notebook" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  前端面试复习笔记
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/HTML" class="sidebar-heading clickable"><span>面试题</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/js学习-一_new" class="sidebar-heading clickable"><span>JavaScript/TypeScript</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/字符串_new" class="sidebar-heading clickable"><span>数据结构</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/二分_new" class="sidebar-heading clickable"><span>算法</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/传输层_new" class="sidebar-heading clickable"><span>计算机网络</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/vue2学习_new" class="sidebar-heading clickable open"><span>前端框架</span> <span class="arrow down"></span></a> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/note/vue2学习_new.html" class="sidebar-link">Vue2</a></li><li><a href="/blog/note/vue原理_new.html" class="sidebar-link">Vue原理</a></li><li><a href="/blog/note/Vuex学习_new.html" class="sidebar-link">Vuex</a></li><li><a href="/blog/note/react学习_new.html" class="active sidebar-link">React</a></li><li><a href="/blog/note/react原理_new.html" class="sidebar-link">React原理</a></li><li><a href="/blog/note/Redux学习_new.html" class="sidebar-link">Redux</a></li><li><a href="/blog/note/react-router_new.html" class="sidebar-link">react-router</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/模块化编程_new" class="sidebar-heading clickable"><span>前端工程化</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/跨域_new" class="sidebar-heading clickable"><span>浏览器原理</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/note/函数式编程_new" class="sidebar-heading clickable"><span>前端杂谈</span> <span class="arrow right"></span></a> <!----></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2></h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">1. 概述</h1> <div data-v-f875f3fc><!----> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default"><h3 id="_1-概述"><a href="#_1-概述" class="header-anchor">#</a> 1. 概述</h3> <ul><li><strong>声明式</strong>的视图层（<strong>JSX</strong>）</li> <li>从状态到UI——<strong>单向数据流</strong></li> <li><strong>虚拟DOM</strong>——灵活的渲染</li> <li><strong>Diff算法</strong>——高效的DOM操作</li> <li>React相当于MVC框架的V层，需要结合其他库发挥作用</li></ul> <h3 id="_2-基础"><a href="#_2-基础" class="header-anchor">#</a> 2. 基础</h3> <h4 id="_1-jsx语法-html写在js中-用-包裹对象"><a href="#_1-jsx语法-html写在js中-用-包裹对象" class="header-anchor">#</a> 1.JSX语法： HTML写在js中，用{}包裹对象</h4> <h4 id="_2-原生html"><a href="#_2-原生html" class="header-anchor">#</a> 2.原生html</h4> <div class="language-react extra-class"><pre class="language-text"><code>const rawHtmlData ={
+    _html: rawHtml
+}
+&lt;p dangerousSetInnerHTML={rawHtmlData}&gt;&lt;/p&gt;
+</code></pre></div><h4 id="_3-事件"><a href="#_3-事件" class="header-anchor">#</a> 3. 事件</h4> <ul><li>更好的兼容性和跨平台</li> <li>挂载到document,减少内存消耗，避免频繁解绑</li> <li>方便事件的统一管理</li></ul> <p><img src="https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202206041455038.png" alt="image-20220118134806580"></p> <p><strong>this默认是undefined, 所以react中的事件必须修改this的指向</strong></p> <div class="language-react extra-class"><pre class="language-text"><code>function1() {}
+// 箭头函数，this指向当前实例
+function2 = () =&gt; {}
+// 写在构造函数里，只绑定一次
+this.function = this.function1.bind(this);
+// 写在render函数里, 每次触发事件都绑定一次
+render() {
+    return &lt;p onClick={this.function1.bind(this)}&gt;&lt;/p&gt;
+    &lt;p onClick={this.function2}&gt;&lt;/p&gt;
+}
+</code></pre></div><p>react中的事件是组合事件(SyntheticEvent), 都绑定在document上</p> <div class="language-js extra-class"><pre class="language-js"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 指向当前元素，即当前元素触发</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>currentTarget<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 指向当前元素</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>nativeEvent<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 原生事件</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>nativeEvent<span class="token punctuation">.</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 指向当前元素，即当前元素触发</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>nativeEvent<span class="token punctuation">.</span>currentTarget<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// document</span>
+</code></pre></div><h4 id="_4-组件"><a href="#_4-组件" class="header-anchor">#</a> 4. 组件</h4> <h5 id="_1-类组件和函数组件"><a href="#_1-类组件和函数组件" class="header-anchor">#</a> 1. 类组件和函数组件</h5> <p>类组件</p> <div class="language-react extra-class"><pre class="language-text"><code>import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+class App extends Component {
+    constructor() {
+        super(props);
+         this.state = {};
+    }
+    render() {
+        return ()
+    }
+}
+
+ReactDOM.render(&lt;App/&gt;, document.getElementById('root'));
+</code></pre></div><p>函数组件 （无状态组件）</p> <div class="language-react extra-class"><pre class="language-text"><code>function App(props) {
+    return ()
+}
+</code></pre></div><p><strong>属性校验PropTypes   默认属性defaultProps</strong></p> <div class="language-react extra-class"><pre class="language-text"><code>App.propTypes = {
+    post: PropTypes.object;
+    onVote: PropTypes.func;
+}
+
+App.defaultProps = {
+    name: 'Stranger'
+}
+</code></pre></div><h5 id="_2-受控组件和非受控组件"><a href="#_2-受控组件和非受控组件" class="header-anchor">#</a> 2. 受控组件和非受控组件</h5> <p>受控（非受控）组件</p> <ol><li><p>受控组件</p> <p><strong>如果一个表单元素的值由React来管理，那么它就是一个受控组件</strong></p> <p>方法： 通过表单元素的value属性设置表单元素的值，通过表单元素的onChange事件监听值的变化，并将变化同步到React组件的state中</p></li> <li><p>非受控组件</p> <p><strong>表单元素的状态仍然由表单元素自己管理，而不是交给React组件管理</strong></p> <p>方法： <strong>可以使用ref（一个函数，以当前元素为参数）来获得React组件或DOM元素的实例</strong></p> <p>缺点：破坏了React对组件状态管理的一致性</p> <div class="language-react extra-class"><pre class="language-text"><code>&lt;input type=&quot;text&quot; ref={(input) =&gt; this.input = input}&gt;&lt;/input&gt;
+</code></pre></div></li></ol> <h5 id="_3-组件样式"><a href="#_3-组件样式" class="header-anchor">#</a> 3. 组件样式</h5> <ol><li><p>外部样式（CSS Moudles）</p></li> <li><p>内联样式</p> <p>第一个大括号表示style的值是一个JavaScript表达式，第二个大括号表示这个JavaScript表达式是一个对象</p> <div class="language-react extra-class"><pre class="language-text"><code>&lt;div style={{height: '10px', weight: '10px'}}&gt;&lt;/div&gt;
+</code></pre></div></li></ol> <h5 id="_4-生命周期-只有类组件有生命周期方法-函数组件没有"><a href="#_4-生命周期-只有类组件有生命周期方法-函数组件没有" class="header-anchor">#</a> 4. 生命周期(只有类组件有生命周期方法，函数组件没有)</h5> <p><img src="https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202206041455039.webp" alt="image.png"></p> <ol><li><p>挂载阶段</p> <p>（1）constructor（ES6 class的构造方法）</p> <p>（2）componentWillMount (这个方法在组件被挂载到DOM前调用，且只会被调用一次)</p> <p>（3）render(渲染UI)</p> <p>（4）<em><strong>componentDidMount</strong></em>（在组件被挂载到DOM后调用，且只会被调用一次）：</p> <p>​        <strong>依赖DOM节点的操作可以放到这个方法中，还会用于向服务器端请求数据</strong></p></li> <li><p>更新阶段</p> <p>组件被挂载到DOM后，组件的<strong>props或state</strong>可以引起组件更新，props引起的组件更新，本质上是由<strong>渲染该组件的父组件引起</strong>的，也就是<strong>当父组件的render方法被调用时，组件会发生更新过程，无论props的值是否改变，父组件render方法每一次调用，都会导致组件更新</strong></p> <p>（1）componentWillReceiveProps</p> <p>​    这个方法<strong>只在props引起的组件更新过程</strong>中，才会被调用。State引起的组件更新并不会    触发该方法的执行。方法的参数nextProps是父组件传递给当前组件的新的props</p> <p>（2）<em><strong>shouldComponentUpdate</strong></em>(<strong>不能调用setState</strong>)</p> <p>​    这个方法决定组件是否继续执行更新过程。当方法返回true时（true也是这个方法的默认返回值），组件会继续更新过程；当方法返回false时，组件的更新过程停止。<strong>一般通过比较nextProps、nextState和组件当前的props、state决定这个方法的返回结果</strong>。这个方法可以用来<strong>减少组件不必要的渲染，从而优化组件的性能</strong></p> <p>（3）componentWillUpdate（render调用前执行，<strong>不能调用setState</strong>）</p> <p>（4）render</p> <p>（5）<em><strong>componentDidUpdate</strong></em></p></li> <li><p>卸载阶段</p> <p><em><strong>componentWillUnmount</strong></em></p> <p>这个方法在组件被卸载前调用，可以在这里执行一些清理工作，比如<strong>清除组件中使用的定时器，清除componentDidMount中手动创建的DOM元素</strong>等</p></li> <li><p>列表和key</p> <p>React使用key属性来标记列表中的每个元素，<strong>当列表数据发生变化时，React就可以通过key知道哪些元素发生了变化，从而只重新渲染发生变化的元素，提高渲染效率</strong>，但并不推荐使用索引作为key，因为一旦列表中的数据发生重排，数据的索引也会发生变化，不利于React的渲染优化</p></li> <li><p>事件处理</p> <ul><li><p>处理事件的响应函数要以<strong>对象的形式</strong>赋值给事件属性，而不是DOM中的字符串形式</p></li> <li><p>React中的事件是<strong>合成事件</strong>，并不是原生的DOM事件,必修<strong>显式地调用事件对象的preventDefault方法阻止事件的默认行为</strong></p></li> <li><p>ES6类不会为方法自动绑定this到当前对象，解决this指向问题</p> <ol><li><p><strong>使用箭头函数直接在render方法中为元素事件定义事件处理函数</strong>，最大的问题是，每次render调用时，都会重新创建一个新的事件处理函数，带来额外的性能开销，组件所处层级越低，这种开销就越大</p> <div class="language-react extra-class"><pre class="language-text"><code>&lt;button onClick={(e)=&gt;{xxx}}&gt;&lt;/button&gt;
+</code></pre></div></li> <li><p>直接将组件的方法赋值给元素的事件属性，同时在类的构造函数中，将这个方法的this绑定到当前对象</p> <div class="language-react extra-class"><pre class="language-text"><code>constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+}
+</code></pre></div></li> <li><p><strong>属性初始化语法</strong></p> <div class="language-react extra-class"><pre class="language-text"><code>// ES7会自动为class中定义的方法绑定this
+handleClick = (e) =&gt; {
+     xxx   
+}
+&lt;button onClick={this.handleClick}&gt;&lt;/button&gt;
+</code></pre></div></li></ol></li></ul></li></ol> <h3 id="_3-react-16新特性-基于fiber架构"><a href="#_3-react-16新特性-基于fiber架构" class="header-anchor">#</a> 3. React 16新特性——基于Fiber架构</h3> <h4 id="_1-render支持返回数组和字符串"><a href="#_1-render支持返回数组和字符串" class="header-anchor">#</a> 1.render支持返回数组和字符串</h4> <h4 id="_2-错误边界"><a href="#_2-错误边界" class="header-anchor">#</a> 2.错误边界</h4> <p>部分UI的错误不应该破坏整个应用程序</p> <h4 id="_3-protals-插槽"><a href="#_3-protals-插槽" class="header-anchor">#</a> 3.Protals(插槽)</h4> <p>Portals特性让我们可以把组件渲染到当前组件树以外的DOM节点上</p> <div class="language-react extra-class"><pre class="language-text"><code>ReactDOM.createProtal(child, container)
+</code></pre></div><p>第一个参数child是可以被渲染的React节点，例如React元素、由React元素组成的数组、字符串等，container是一个DOM元素，child将被挂载到这个DOM节点</p> <p>应对css兼容性问题，如z-index、fixed、BFC等问题，全局的dialog</p> <h3 id="_4-深入理解组件"><a href="#_4-深入理解组件" class="header-anchor">#</a> 4. 深入理解组件</h3> <h4 id="_1-state"><a href="#_1-state" class="header-anchor">#</a> 1.state</h4> <ul><li><p>不能直接修改state,要使用setState</p></li> <li><p><strong>state的更新是异步的</strong>，调用setState时把要修改的状态放入一个队列中，React会优化真正的执行时机，可能会将多次setState的状态修改合并成一次状态修改，<strong>所以不要依赖当前的state来计算下一个state,同样不能依赖当前的props来计算下一个状态</strong></p> <p><img src="https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202206041455041.png" alt="image-20220118135012122"></p> <p>正确方法：</p> <div class="language-react extra-class"><pre class="language-text"><code>// preState是前一个状态，props是当前最新的属性props
+this.setState((preState, props) =&gt; {
+    // isBatchingUpdates = true
+    counter: preState.quantity + 1;
+})
+// setTimeout中setState是同步的
+setTimeout(() =&gt; {
+    // isBatchingUpdates = false
+       setState({
+        count: this.state.count + 1
+    })
+}， 1000)
+// 自己定义的DOM事件中setState是同步的
+document.body.addEventListener('click', this.bodyClickHandler)
+</code></pre></div></li> <li><p>state的更新是一个合并的过程</p> <p>当调用setState修改组件状态时，只需要传入发生改变的state，而不是组件完整的state，因为组件state的更新是一个合并的过程</p></li> <li><p>state被视为<strong>不可变对象</strong></p> <p><strong>不可变类型</strong>（number string boolean null undefined）</p> <p>数组类型（使用concat方法或扩展语法、slice()、filter()——返回一个新的数组对象）</p> <p><strong>对象类型</strong>（object.assgin合并对象、扩展语法返回一个新的对象）</p></li></ul> <h4 id="_2-与服务端通信"><a href="#_2-与服务端通信" class="header-anchor">#</a> 2. 与服务端通信</h4> <p>在componentDidMount阶段进行服务器通信，此时组件已经挂载且真实DOM渲染完成，是调用服务器API最安全的地方</p> <ul><li>在componentDidMount中执行服务器通信可以保证获取到数据时，组件已经处于挂载状态，这时即使要直接操作DOM也是安全</li> <li>在componentWillMount中请求并不会比在componentDidMount中请求快多少，而在constructor中请求则会导致加载时间太长</li> <li>当组件在服务器端渲染时，componentWillMount会被调用两次，一次是在服务器端，另一次是在浏览器端，而componentDidMount能保证在任何情况下<strong>只会被调用一次</strong>，从而不会发送多余的数据请求</li></ul> <h4 id="_3-组件间通信"><a href="#_3-组件间通信" class="header-anchor">#</a> 3. 组件间通信</h4> <ul><li><p>父子组件通信</p> <p><strong>子-&gt;父：父组件通过子组件的props传递给子组件一个回调函数，子组件调用这个回调函数来改变父组件数据</strong></p></li> <li><p>兄弟组件通信</p> <p><strong>通过状态提升的方式实现，即把需要共享的状态保存在公共父组件内，通过回调函数修改共享状态</strong></p></li> <li><p>Context</p> <p><strong>context上下文让任意层级的子组件都可以获得父组件中的状态和方法</strong></p> <div class="language-react extra-class"><pre class="language-text"><code>const Context = createContext();
+// 父组件中
+&lt;Context.Provider value={color}&gt;
+    &lt;Child/&gt;
+&lt;/Context.Provider&gt;
+// 子组件中
+&lt;Context.Consumer&gt;{color}&lt;/Context.Consumer&gt;
+</code></pre></div></li> <li><p>消息队列、Redux、Mobx</p></li></ul> <h4 id="_4-ref获取dom"><a href="#_4-ref获取dom" class="header-anchor">#</a> 4.ref获取DOM</h4> <p>ref接收一个<strong>回调函数</strong>作为值，在组件被挂载或卸载时，回调函数会被调用，在组件被挂载时，回调函数会接收当前DOM元素作为参数；在组件被卸载时，回调函数会接收null作为参数</p> <h4 id="_5-异步组件"><a href="#_5-异步组件" class="header-anchor">#</a> 5. 异步组件</h4> <ul><li>import()</li> <li>React.lazy</li> <li>React.Suspense</li></ul> <div class="language-react extra-class"><pre class="language-text"><code>const Demo = React.lazy(() =&gt; import('./Demo'))
+
+class App extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return &lt;React.Suspense fallback={&lt;div&gt;...loading&lt;/div&gt;}&gt;
+            &lt;Demo/&gt;
+        &lt;/React.Suspense&gt;
+    }
+}
+</code></pre></div><h4 id="_6-组件声明方式"><a href="#_6-组件声明方式" class="header-anchor">#</a> 6. 组件声明方式</h4> <ul><li>函数式组件: 无状态组件，不能访问this对象，不能使用生命周期方法</li> <li>React.createClass类组件：自动绑定函数方法</li> <li>extends React.Component类组件：需要手动在构造函数中绑定成员函数的this</li></ul> <h3 id="_5-虚拟dom和diff算法"><a href="#_5-虚拟dom和diff算法" class="header-anchor">#</a> 5. 虚拟DOM和Diff算法</h3> <ul><li><p>操作真实DOM缺点：每一次对DOM的修改都会引起浏览器对网页的重新布局和重新渲染，所以尽量减少DOM操作</p></li> <li><p>虚拟DOM是真实DOM的抽象，使用JS对象描述DOM元素</p> <div class="language-react extra-class"><pre class="language-text"><code>// 真实DOM
+&lt;div className = &quot;foo&quot;&gt;
+    &lt;h1&gt;Hello&lt;/h1&gt;
+&lt;/div&gt;
+// 虚拟DOM
+{
+    type: 'div',
+     props: {
+        className: 'h1',
+         children: {
+             type: 'h1',
+             props: {
+                 children: 'Hello'
+             }
+         }
+     }
+}
+</code></pre></div></li> <li><p>DIff算法 O(n)：React会通过<strong>比较两次虚拟DOM结构的变化</strong>找出差异部分，更新到真实DOM上，从而减少最终要在真实DOM上执行的操作，提高程序执行效率</p> <ol><li><p>根节点是不同类型：</p> <p>DOM元素类型（旧DOM节点被销毁，新DOM元素插入DOM树中）</p> <p>React组件类型(旧的组件实例的componentWillUnmount被调用，新的组件实例componentWillMount和componentDidMount调用)</p></li> <li><p>根节点是相同DOM元素类型</p> <p>React保留根节点，比较根节点的<strong>属性</strong>，只更新变化了的属性</p></li> <li><p>根节点是相同的组件类型</p> <p>执行组件实例的componentWillReceiveProps() componentWillUpdate()</p></li></ol></li></ul> <h3 id="_6-高阶组件"><a href="#_6-高阶组件" class="header-anchor">#</a> 6. 高阶组件</h3> <blockquote><p>高阶组件（简称HOC）接收React组件作为参数，并且返回一个新的React组件</p></blockquote> <p>高阶组件的主要功能是<strong>封装并分离组件的通用逻辑</strong>，让通用逻辑在组件间更好地被复用</p> <p>高阶组件最适合使用的地方是在<strong>组件定义的外部</strong>，这样就不会受到组件生命周期的影响</p> <div class="language-react extra-class"><pre class="language-text"><code>import React, { Component } from 'react'
+// 代理方式实现
+// 高阶函数，添加ComponentWillMount方法
+function withPersistentData(WrappedComponent) {
+    return class extends Componet {
+        componentWillMount() {
+            let data = localStorage.getItem('data');
+            this.setState({data};
+        }
+
+        render() {
+            return &lt;WrappedComponent data={this.state.data} {...this.props} /&gt;
+        }
+    }
+}
+
+class MyComponent extends Component {
+    render() {
+        return &lt;div&gt;{this.props.data}&lt;/div&gt;
+    }
+}
+
+const MyComponentWithPersistentData = withPersistentData(MyComponent);
+</code></pre></div><ul><li><p>操纵props</p> <p>在被包装组件接收props前，高阶组件可以先拦截到props，对props执行增加、删除或修改的操作，然后将处理后的props再传递给被包装组件</p></li> <li><p>通过ref访问组件实例</p> <p>高阶组件通过ref获取被包装组件实例的引用，然后高阶组件就具备了直接操作被包装组件的属性或方法的能力</p> <div class="language-react extra-class"><pre class="language-text"><code>function withRef(wrappedComponent) {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
+            this.someMethod = this.someMethod.bind(this);
+        }
+        someMethod() {
+            this.wrappedInstance.somMethodInWrappedComponent();
+        }
+
+        render() {
+            // 通过ref 访问被包装组件的实例
+            return &lt;WrappedComponent ref=((instance) =&gt; {this.wrappedInstance = instance}) {...this.props} /&gt;
+        }
+    }
+}
+</code></pre></div></li> <li><p>组件状态提升</p> <p>高阶组件可以通过将被包装组件的状态及相应的状态处理方法提升到高阶组件自身内部实现被包装组件的无状态化，<strong>利用高阶组件将原本受控组件需要自己维护的状态统一提升到高阶组件中</strong></p></li> <li><p>用其他元素包装组件</p></li> <li><p><strong>参数传递</strong></p> <p>高阶组件的参数并非只能是一个组件，它还可以接收其他参数</p> <div class="language-react extra-class"><pre class="language-text"><code>HOC(...params) (wrappedComponent)
+
+function withPersistentData = (key) =&gt; (wrappedComponent) =&gt; {
+    // xxx
+}
+
+const MycomponentWithPersistentData = withPersistentData('data')(MyComponent);
+</code></pre></div><p>还可以使用工具函数compose(...func),调用compose(f, g, h)等价于(...args) =&gt;f(g(h(...args)))</p></li></ul> <h3 id="_7-性能优化"><a href="#_7-性能优化" class="header-anchor">#</a> 7. 性能优化</h3> <ul><li><p>SCU（shouldComponentUpdate）</p> <p>父组件更新，子组件无条件更新(需要在子组件SCU判断)</p> <div class="language-react extra-class"><pre class="language-text"><code>shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.count !== this.state.count) {
+        return true // 可以渲染
+    }
+    return false  // 不重复渲染
+}
+</code></pre></div></li> <li><p>PureComponent(类组件)和React.memo(函数式组件)</p> <p>尽量浅比较</p> <div class="language-react extra-class"><pre class="language-text"><code>class Demo extends React.PureComponent {
+    // 
+}
+</code></pre></div><p><img src="https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202206041455042.png" alt="image-20220118133345356"></p></li> <li><p>不可变值immutable.js</p></li></ul> <h3 id="_8-render-props"><a href="#_8-render-props" class="header-anchor">#</a> 8. Render Props</h3> <p>通过一个函数将class组件的state作为props传递给纯函数组件</p> <div class="language-react extra-class"><pre class="language-text"><code>class Factory extends React.Component {
+    constructor() {
+        this.state = {}
+    }
+    render() {
+        return &lt;div&gt;this.props.render(this.state)&lt;/div&gt;
+    }
+}
+
+const App = () =&gt; {
+    &lt;Factory render={(props) =&gt; &lt;p&gt;{props.a}&lt;/p&gt;}&gt;&lt;/Factory&gt;
+}
+</code></pre></div></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2023/2/12 13:14:10</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/blog/note/Vuex学习_new.html" class="prev">
+            Vuex
+          </a></span> <span class="next"><a href="/blog/note/react原理_new.html">
+            React原理
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-3" data-v-cb1513f6><a href="/blog/note/react%E5%AD%A6%E4%B9%A0_new.html#_1-概述" class="sidebar-link reco-side-_1-概述" data-v-cb1513f6>1. 概述</a></li><li class="level-3" data-v-cb1513f6><a href="/blog/note/react%E5%AD%A6%E4%B9%A0_new.html#_2-基础" class="sidebar-link reco-side-_2-基础" data-v-cb1513f6>2. 基础</a></li><li class="level-3" data-v-cb1513f6><a href="/blog/note/react%E5%AD%A6%E4%B9%A0_new.html#_3-react-16新特性-基于fiber架构" class="sidebar-link reco-side-_3-react-16新特性-基于fiber架构" data-v-cb1513f6>3. React 16新特性——基于Fiber架构</a></li><li class="level-3" data-v-cb1513f6><a href="/blog/note/react%E5%AD%A6%E4%B9%A0_new.html#_4-深入理解组件" class="sidebar-link reco-side-_4-深入理解组件" data-v-cb1513f6>4. 深入理解组件</a></li><li class="level-3" data-v-cb1513f6><a href="/blog/note/react%E5%AD%A6%E4%B9%A0_new.html#_5-虚拟dom和diff算法" class="sidebar-link reco-side-_5-虚拟dom和diff算法" data-v-cb1513f6>5. 虚拟DOM和Diff算法</a></li><li class="level-3" data-v-cb1513f6><a href="/blog/note/react%E5%AD%A6%E4%B9%A0_new.html#_6-高阶组件" class="sidebar-link reco-side-_6-高阶组件" data-v-cb1513f6>6. 高阶组件</a></li><li class="level-3" data-v-cb1513f6><a href="/blog/note/react%E5%AD%A6%E4%B9%A0_new.html#_7-性能优化" class="sidebar-link reco-side-_7-性能优化" data-v-cb1513f6>7. 性能优化</a></li><li class="level-3" data-v-cb1513f6><a href="/blog/note/react%E5%AD%A6%E4%B9%A0_new.html#_8-render-props" class="sidebar-link reco-side-_8-render-props" data-v-cb1513f6>8. Render Props</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><canvas id="vuepress-canvas-cursor"></canvas></div></div>
+    <script src="/blog/assets/js/app.bc444f20.js" defer></script><script src="/blog/assets/js/3.38bf7d9d.js" defer></script><script src="/blog/assets/js/1.be70e6c5.js" defer></script><script src="/blog/assets/js/32.088e9eb8.js" defer></script>
+  </body>
+</html>
