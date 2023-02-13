@@ -115,6 +115,7 @@ module.exports = {
                     { title: 'React原理', path: '/note/react原理_new' },
                     { title: 'Redux', path: '/note/Redux学习_new' },
                     { title: 'react-router', path: '/note/react-router_new' },
+                    { title: 'React脚手架', path: '/note/umi' }
                 ]
             },
             {
@@ -149,7 +150,23 @@ module.exports = {
                 collapsable: true,
                 children: [
                     { title: '函数式编程', path: '/note/函数式编程_new' },
-                    { title: '加密', path: '/note/加密_new' }
+                    { title: '加密', path: '/note/加密_new' },
+                    { title: 'Git', path: '/note/git_new' },
+                    { title: '设计模式', path: '/note/设计模式_new' },
+                    { title: '前端路由', path: '/note/前端路由原理_new' }
+                ]
+            },
+            {
+                title: 'Java/Spring',
+                path: '/note/JAVA基础_new',
+                collapsable: true,
+                children: [
+                    { title: 'Java基础', path: '/note/JAVA基础_new' },
+                    { title: 'Spring', path: '/note/Spring思想' },
+                    { title: 'SpringBoot', path: '/note/springboot-入门_new' },
+                    { title: 'Mybatis', path: '/note/mybatis' },
+                    { title: '响应式编程', path: '/note/响应式编程' },
+                    { title: 'MySQL', path: '/note/Mysql' }
                 ]
             }
         ]
