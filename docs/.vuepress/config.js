@@ -108,6 +108,7 @@ module.exports = {
                 path: '/note/vue2学习_new',
                 collapsable: true,
                 children: [
+                    { title: '前端框架概述', path: '/note/前端框架概况' },
                     { title: 'Vue2', path: '/note/vue2学习_new' },
                     { title: 'Vue原理', path: '/note/vue原理_new' },
                     { title: 'Vuex', path: '/note/Vuex学习_new' },
