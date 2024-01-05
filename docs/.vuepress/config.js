@@ -4,12 +4,12 @@
  * @Author: 赵卓轩
  * @Date: 2022-05-28 16:36:20
  * @LastEditors: 赵卓轩
- * @LastEditTime: 2022-06-05 00:05:04
+ * @LastEditTime: 2024-01-05 15:12:19
  */
 module.exports = {
     base: '/blog/',
     title: 'Floyd的博客',
-    description: '前端、后端学习笔记',
+    description: '个人技术分享文章、学习笔记，包括前端、后端、大数据等技术领域',
     theme: 'reco',
     locales: {
         '/': {
@@ -32,6 +32,14 @@ module.exports = {
             }
         ],
         sidebar: [
+            {
+                title: '技术博客',
+                path: '/note/前端框架概况',
+                children: [
+                    { title: '技术分享-前端框架概况', path: '/note/前端框架概况' },
+                    { title: '技术分享-前端工程化概述', path: '/note/前端工程化概述' },
+                ]
+            },
             {
                 title: '面试题',
                 path: '/note/HTML',
@@ -108,7 +116,6 @@ module.exports = {
                 path: '/note/vue2学习_new',
                 collapsable: true,
                 children: [
-                    { title: '前端框架概述', path: '/note/前端框架概况' },
                     { title: 'Vue2', path: '/note/vue2学习_new' },
                     { title: 'Vue原理', path: '/note/vue原理_new' },
                     { title: 'Vuex', path: '/note/Vuex学习_new' },
@@ -168,6 +175,18 @@ module.exports = {
                     { title: 'Mybatis', path: '/note/mybatis' },
                     { title: '响应式编程', path: '/note/响应式编程' },
                     { title: 'MySQL', path: '/note/Mysql' }
+                ]
+            },
+            {
+                title: '代码规范',
+                path: '/note/HTML编码规范',
+                collapsable: true,
+                children: [
+                    { title: 'HTML编码规范', path: '/note/HTML编码规范' },
+                    { title: 'CSS编码规范', path: '/note/CSS编码规范' },
+                    { title: 'JS编码规范', path: '/note/JS编码规范' },
+                    { title: 'TS编码规范', path: '/note/TS编码规范' },
+                    { title: 'React编码规范', path: '/note/React编码规范' }
                 ]
             }
         ]
