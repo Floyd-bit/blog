@@ -58,14 +58,14 @@ jobs:
           branch: deploy
 
       # 5、部署到 somenzz.cn 服务器
-      - name: rsync deployments
-        uses: burnett01/rsync-deployments@4.1
-        with:
-          # 这里是 rsync 的参数 switches: -avzh --delete --exclude="" --include="" --filter=""
-          switches: -avzh
-          path: docs/.vuepress/dist/
-          remote_path: /www/blog/
-          remote_host: 121.37.213.242
-          remote_port: 22
-          remote_user: root
-          remote_key: ${{ secrets.MY_UBUNTU_RSA_PRIVATE_KEY }}
+      # - name: rsync deployments
+      #   uses: burnett01/rsync-deployments@4.1
+      #   with:
+      #     # 这里是 rsync 的参数 switches: -avzh --delete --exclude="" --include="" --filter=""
+      #     switches: -avzh
+      #     path: docs/.vuepress/dist/
+      #     remote_path: /www/blog/
+      #     remote_host: 121.37.213.242
+      #     remote_port: 22
+      #     remote_user: root
+      #     remote_key: ${{ secrets.MY_UBUNTU_RSA_PRIVATE_KEY }}
