@@ -4,7 +4,7 @@
  * @Author: 赵卓轩
  * @Date: 2022-05-28 16:36:20
  * @LastEditors: 赵卓轩
- * @LastEditTime: 2024-01-26 17:30:35
+ * @LastEditTime: 2024-02-05 13:18:15
  */
 module.exports = {
     base: '/blog/',
@@ -30,7 +30,8 @@ module.exports = {
                     { text: '前端面试复习笔记', link: 'https://github.com/CavsZhouyou/Front-End-Interview-Notebook' },
                     { text: '吴师兄学算法', link: 'https://blog.algomooc.com/' },
                     { text: '代码随想录', link: 'https://www.programmercarl.com/' },
-                    { text: 'CodeTop', link: 'https://codetop.cc/' }
+                    { text: 'CodeTop', link: 'https://codetop.cc/' },
+                    { text: '小林coding', link: 'https://xiaolincoding.com/' }
                 ]
             }
         ],
