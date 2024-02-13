@@ -1,5 +1,20 @@
 > 稳定性: 两个相等元素初始顺序与排序后顺序一致则是稳定的
 
+### 各排序算法的稳定性，时间复杂度，空间复杂度
+
+![image](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/5/31/17268ebaae4e7c11~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
+
+稳定性：稳定性的意思就是对于相同值来说，相对顺序不能改变。通俗的讲有两个相同的数 A 和 B，在排序之前 A 在 B 的前面， 而经过排序之后，B 跑到了 A 的前面，对于这种情况的发生，我们管他叫做排序的不稳定性。
+
+稳定性有什么意义？个人理解对于前端来说，比如我们熟知框架中的虚拟 DOM 的比较，我们对一个列表进行渲染， 当数据改变后需要比较变化时，不稳定排序或操作将会使本身不需要变化的东西变化，导致重新渲染，带来性能的损耗。
+
+- **数据库**: 在数据库查询中，稳定的排序算法能确保当你按多个字段排序时，每一级的排序都不会影响其他级别的排序结果。（如先对商品数据按照销量排序，再按照价格排序，如果算法不稳定将会使得排序结果出错）
+- **搜索引擎**: 稳定性在搜索结果排序中也很重要，以便维持其他相关因素（如页面权重）的原有顺序。
+
+### JS数组排序方法实现
+
+ 在Chrome浏览器中，JS数组长度大于 10 会采用快排，否则使用插入排序。选择插入排序是因为虽然时间复杂度很差，但是在数据量很小的情况下和 O(N * logN) 相差无几，然而插入排序需要的常数时间很小，所以相对别的排序来说更快。
+
 ### 1. 冒泡排序
 
 时间复杂度 O(n^2)     空间复杂度 O(1)    稳定
@@ -176,4 +191,48 @@ function heapSort(arr) {
 }
 ```
 
+### 7. 基数排序
+
+将整数按位数切割成不同的数字，然后按每个位数分别比较
+
+![img](https://www.runoob.com/wp-content/uploads/2019/03/radixSort.gif)
+
+```javascript
+//LSD Radix Sort
+var counter = [];
+function radixSort(arr, maxDigit) {
+    var mod = 10;
+    var dev = 1;
+    for (var i = 0; i < maxDigit; i++, dev *= 10, mod *= 10) {
+        for(var j = 0; j < arr.length; j++) {
+            var bucket = parseInt((arr[j] % mod) / dev);
+            if(counter[bucket]==null) {
+                counter[bucket] = [];
+            }
+            counter[bucket].push(arr[j]);
+        }
+        var pos = 0;
+        for(var j = 0; j < counter.length; j++) {
+            var value = null;
+            if(counter[j]!=null) {
+                while ((value = counter[j].shift()) != null) {
+                      arr[pos++] = value;
+                }
+          }
+        }
+    }
+    return arr;
+}
+```
+
+### 8. 计数排序
+
+### 9. 桶排序
+
+### 10. 希尔排序
+
+![img](https://pic1.zhimg.com/80/v2-7ef755d2b04f11cb013acb47f10928cc_720w.webp)
+
 ### 7. 数组中的第K个最大元素
+
+利用快速排序的方法找到位置在第k个的元素，并可以根据基准元素的位置缩小快速排序的区间。
