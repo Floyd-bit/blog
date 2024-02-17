@@ -4,7 +4,7 @@
  * @Author: 赵卓轩
  * @Date: 2022-05-28 16:36:20
  * @LastEditors: 赵卓轩
- * @LastEditTime: 2024-02-05 13:18:15
+ * @LastEditTime: 2024-02-17 21:49:32
  */
 module.exports = {
     base: '/blog/',
@@ -42,7 +42,8 @@ module.exports = {
                 children: [
                     { title: '技术分享-前端框架概况', path: '/note/前端框架概况' },
                     { title: '技术分享-前端工程化概述', path: '/note/前端工程化概述' },
-                    { title: '技术分享-一次图片性能优化实战', path: '/note/一次图片性能优化实战.md' }
+                    { title: '技术分享-一次图片性能优化实战', path: '/note/一次图片性能优化实战' },
+                    { title: '技术分享-跨端技术调研和实践', path: '/note/跨端技术调研和实践' }
                 ]
             },
             {
