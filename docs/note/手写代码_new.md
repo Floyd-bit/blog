@@ -1,4 +1,4 @@
-### 1. new操作符
+###  1. new操作符
 
 ```js
 function myNew(fn, ...args) {
@@ -37,7 +37,9 @@ const getJSON = function(url) {
 
 ### 3. 深拷贝
 
-简易版 JSON.prase(JSON.strify(obj))
+浅拷贝方法：Object.assign、[...obj]
+
+简易版 JSON.prase(JSON.stringify(obj))
 
 ```js
 function isObject(val) {
@@ -221,7 +223,7 @@ MyPromise.race = function(promiseArr) {
             }).catch(err => {
                 if(!flag) {
                     flag = true;
-                       reject(err);
+                    reject(err);
                 }
             })
         }
@@ -260,12 +262,12 @@ function promisify(fn) {
   // 防抖
   function debounce(fn,delay) {
       let timer = null;
-      if(timer) {
-          clearTimeout(timer);
-      }
       return function(){
-          setTimeout(()=>{
-              fn.call(this,arguments);
+         	if(timer) {
+          	clearTimeout(timer);
+      	}
+          timer = setTimeout(()=>{
+              fn.apply(this,arguments);
           },delay);
       }
   }
@@ -273,12 +275,12 @@ function promisify(fn) {
   // 节流
   function throttle(fn, delay) {
       let timer = null;
-      if(timer) {
-          return;
-      }
       return function() {
-          setTimeout(()=>{
-              fn.call(this,arguments);
+          if(timer) {
+          	return;
+      	}
+          timer = setTimeout(()=>{
+              fn.apply(this,arguments);
           },delay);
       }
   }
@@ -344,10 +346,13 @@ function instanceof(left, right) {
     var args = [...arguments].slice(1)
     // 返回一个函数
     return function F() {
-        if(this instanceof F) {
-            return new _this(...args, ...arguments)
+        const bindArgs = Array.prototype.slice.call(arguments);
+        // 如果函数F作为构造函数使用，bind指定的this会失效
+        if(this instanceof F) { 
+            // return new _this(...args, ...arguments)
+            return _this.apply(this, args.concat(...bindArgs))
         }
-        return _this.apply(context, args.concat(...arguments))
+        return _this.apply(context, args.concat(...bindArgs))
     }
   } 
   ```
