@@ -4,7 +4,7 @@
  * @Author: 赵卓轩
  * @Date: 2022-05-28 16:36:20
  * @LastEditors: 赵卓轩
- * @LastEditTime: 2024-02-17 21:49:32
+ * @LastEditTime: 2024-02-19 20:16:04
  */
 module.exports = {
     base: '/blog/',
@@ -54,7 +54,8 @@ module.exports = {
                     { title: 'HTML', path: '/note/HTML' },
                     { title: 'CSS', path: '/note/CSS' },
                     { title: 'Vue', path: '/note/Vue' },
-
+                    { title: '手写代码', path: '/note/手写代码_new' },
+                    { title: '代码输出结果', path: '/note/代码输出结果' }
                 ]
             },
             {
@@ -69,7 +70,6 @@ module.exports = {
                     { title: 'Ajax/Fetch', path: '/note/Ajax_new' },
                     { title: '闭包/上下文/作用域/this', path: '/note/闭包和上下文_new' },
                     { title: '异步编程', path: '/note/Promise_new' },
-                    { title: 'JS手写', path: '/note/手写代码_new' },
                     { title: 'TS基础', path: '/note/TS基础' }
                 ]
             },
