@@ -193,7 +193,6 @@ MyPromise.all = function(promiseArr) {
     var count = 0;
     var length = promiseArr.length;
     var flag = true;
-    var errMes;
     return new MyPromise(function(resolve, reject) {
         for(let i=0; i<length; i++) {
             promiseArr[i].then(res => {
@@ -207,6 +206,31 @@ MyPromise.all = function(promiseArr) {
                 reject(err);
             })
             if(!flag) break;
+        }
+    })
+}
+// allSettled
+MyPromise.allSettled = function(promiseArr) {
+    var resArr = [];
+    var count = 0;
+    var length = promiseArr.length;
+    return new MyPromise((resolve, reject) => {
+		for(let i=0; i<length; i++) {
+			promiseArr[i].then(res => {
+                count++;
+                resArr.push({
+                    status: 'fulfilled',
+                    value: res
+                });
+                if(count === length) resolve(resArr);
+            }).catch(err => {
+               count++;
+               resArr.push({
+                   status: 'rejected',
+                   reason: err
+               });
+               if(count === length) resolve(resArr);
+            });
         }
     })
 }
@@ -224,6 +248,29 @@ MyPromise.race = function(promiseArr) {
                 if(!flag) {
                     flag = true;
                     reject(err);
+                }
+            })
+        }
+    })
+}
+// any
+MyPromise.any = function(promiseArr) {
+	var flag = false;
+    var count = 0;
+    let errs = [];
+    let length = promiseArr.length;
+    return new MyPromise((resolve, reject) => {
+        for(let i=0; i<length; i++) {
+			promiseArr[i].then(res => {
+                if(!flag) {
+                    flag = true;
+                    resolve(res);
+                }
+            }).catch(err => {
+                count++;
+				errs.push(err);
+                if(count === length && !flag) {
+                    reject(new AggregateError(errs));
                 }
             })
         }
@@ -582,4 +629,60 @@ function compose(...fns) {
   }
   ```
 
-  
+
+### 16. 循环打印红绿黄
+
+**红灯 3s 亮一次，绿灯 1s 亮一次，黄灯 2s 亮一次；如何让三个灯不断交替重复亮灯？**
+
+- 回调函数写法
+
+  ```js
+  function print(light, time, callback) {
+  	setTimeout(() => {
+         console.log(light);
+         callback();
+      }, time);
+  }
+  function excute() {
+      print('red', 3000, () => {
+          print('green', 1000, () => {
+              // 递归调用，循环打印
+              print('yellow', 2000, excute);
+          })
+      })
+  }
+  ```
+
+- Promise写法
+
+  ```js
+  function print(light, time) {
+      return new Promise((resolve) => {
+        	setTimeout(() => {
+             console.log(light);
+             resolve();
+      	}, time);  
+      })
+  }
+  function excute() {
+      print('red', 3000).then(() => {
+          print('green', 1000).then(() => {
+              print('yellow', 2000).then(() => {
+                  excute();
+              })
+          })
+      })
+  }
+  ```
+
+- async/await写法
+
+```js
+async function excute() {
+    await print('red', 3000);
+    await print('green', 1000);
+    await print('yellow', 2000);
+    excute();
+}
+```
+
