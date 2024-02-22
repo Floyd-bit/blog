@@ -178,11 +178,69 @@ var findLength = function(nums1, nums2) {
 
 若五项物品的价值数组和重量数组分别为v[]={0,1,6,18,22,28}和w[]={0,1,2,5,6,7}，背包容量为T=11，则获得的最大价值为____ .
 
-思路：用二维数组存储最大价值，一维表示容量，一维表示可以选择的物品
+思路：用二维数组存储最大价值，一维表示容量，一维表示可以选择的物品。dp\[i][j]表示从下标为0到i的物品中选择若干件物品放入容量为j的背包中能存储的最大价值。
 
 ![image-20220702145152255](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202207021452004.png)
 
-```c++
-
+```js
+const package = (value, weight, size) => {
+	const dp = new Array(value.length).map(arr => new Array(size+1).fill(0));
+    // 初始化dp数组
+    for(let i=weight[0]; i<=weight; i++) {
+        dp[0][i] = value[0];
+    }
+    // dp填表
+    for(let i=1; i<dp.length; i++) {
+        for(let j=0; j<weight; j++) {
+            if(j < weight[i]) {
+                dp[i][j] = dp[i-1][j];
+            } else {
+                // 选 or 不选第i件物品
+                dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-weight[i]] + value[i]);
+            }
+        }
+    }
+    return dp[value.length-1][size];
+}
 ```
 
+### 10. 编辑距离
+
+给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。
+
+你可以对一个单词进行如下三种操作：
+
+- 插入一个字符
+- 删除一个字符
+- 替换一个字符
+
+思路：dp\[i\][j]表示以下标i-1结尾的字符串word1，和以下标j-1结尾的字符串word2的最小编辑距离（之所以表示i-1结尾是因为方便初始化，dp\[i]\[0]表示以下标i-1结尾的字符串与空字符串的最小编辑距离，即为i）
+
+```js
+const minDistance = (word1, word2) => {
+    const dp = new Array(word1.length+1).map(arr => new Array(word2.length+1).fill(0));
+    // 初始化dp数组
+    for(let i=0; i<=word1.length; i++) {
+		dp[i][0] = i;
+    }
+    for(let j=0; j<word2.length; j++) {
+        dp[0][i] = j;
+    }
+    // 填表
+    for(let i=1; i<=word1.length; i++) {
+		for(let j=1; j<word2.length; j++) {
+			if(word1[i-1][j-1] === word2[i-1][j-1]) {
+                dp[i][j] = dp[i-1][j-1];
+            } else {
+                // 可能有三种情况：新增、删除、替换
+                dp[i][j] = Math.min(
+                	dp[i-1][j],
+                    dp[i][j-1],
+                    dp[i-1][j-1]
+                ) + 1;
+            }
+        }
+    }
+    return dp[word1.length-1][word2.length-1];
+}
+```
