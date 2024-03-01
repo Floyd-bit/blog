@@ -7,7 +7,21 @@ description: Redux学习
 
 ### 1. Redux工作流程
 
-![img](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202206041455610.jpg)
+![img](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202206041455610.jpg) 
+
+Redux是基于`Flux`的思想进行设计的，它包含三个原则：
+
+1. **单一数据源**
+
+   应用程序的**全局状态**作为对象存储在单个 **store** 中
+
+2. **State是只读的**
+
+   更改状态的唯一方法是 dispatch 一个 **action**，更容易跟踪发生状态更新的原因
+
+3. **使用Reducer纯函数进行更改**
+
+   Reducers 是纯函数，它接收旧 state 和 action，并返回新 state
 
 ### 2.创建Redux中的仓库
 
@@ -304,3 +318,21 @@ const reducer = (state, action) => {
       </TodoContext.Privider>
   }
   ```
+
+### 8. Redux原理
+
+使用redux的核心语句是通过createStore创建一个store:
+
+```js
+const store = createStore(reducer, initState, applyMiddleware(Middleware1, Middleware2,...))
+```
+
+createStore函数接收三个参数：
+
+- reducer
+- 初始状态initState
+- enhancer：通过applyMiddleware方法添加一些中间件
+
+​	createStore函数中通过闭包保存了全局state，并且返回了`dispatch`、`subscribe`、`getState`方法。其中`subscribe`方法是通过`发布-订阅模式`实现的，将回调函数放到监听事件队列中。`dispatch`方法接收action作为参数，内部调用reducer方法得到新的state并更新，然后遍历subscribe订阅事件队列并执行回调函数。getState方法则返回全局state。
+
+​	redux本身只提供了最基础的功能，对于一些扩展能力通过中间件来实现。**redux中间件实际的作用是对dispatch方法进行增强**，引入中间件后在业务代码中调用dispatch，实际上会先将传入的action依次经过各个中间件处理后最调用真正的dispatch。中间件的实现本质上是使用**compose函数**将一系列middleware函数组合成一个函数。

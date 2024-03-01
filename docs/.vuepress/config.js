@@ -4,7 +4,7 @@
  * @Author: 赵卓轩
  * @Date: 2022-05-28 16:36:20
  * @LastEditors: 赵卓轩
- * @LastEditTime: 2024-02-27 15:36:18
+ * @LastEditTime: 2024-03-01 16:04:51
  */
 module.exports = {
     base: '/blog/',
@@ -55,6 +55,7 @@ module.exports = {
                     { title: 'HTML', path: '/note/HTML' },
                     { title: 'CSS', path: '/note/CSS' },
                     { title: 'Vue', path: '/note/Vue' },
+                    { title: "TS", path: '/note/TS面试题_new' },
                     { title: '手写代码', path: '/note/手写代码_new' },
                     { title: '代码输出结果', path: '/note/代码输出结果' },
                     { title: '场景题', path: '/note/场景问题' }

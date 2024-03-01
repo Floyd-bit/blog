@@ -235,6 +235,17 @@ ReactDOM.createProtal(child, container)
 
 - **state的更新是异步的**，调用setState时把要修改的状态放入一个队列中，React会优化真正的执行时机，可能会将多次setState的状态修改合并成一次状态修改，**所以不要依赖当前的state来计算下一个state,同样不能依赖当前的props来计算下一个状态**
   
+- **setState方法是同步还是异步？**
+  
+  **结论：在合成事件和生命周期函数中调用setState表现为异步，在原生事件和setTimeout等中调用setState表现为同步**
+  
+  > 在 React 中为了防止多次 `setState` 导致多次渲染带来不必要的性能开销，会将待更新的 `state` 放到队列中，等到合适的时机（**生命周期钩子和事件**）后进行`batchUpdate`，所以在 `setState` 后无法立即拿到更新后的 `state`。
+  >
+  > 所以很多人说 `setState` 是异步的，`setState` 表现确实是异步，但是里面没有用异步代码实现。而且不是等主线程代码执行结束后才执行的，而是需要手动触发。
+  >
+  > 如果是给 `setState` 传入一个函数，这个函数是执行前一个 `setState` 后才被调用的，所以函数返回的参数可以拿到更新后的 `state`。
+  > 但是如果将 `setState` 在异步方法中（`setTimeout`、`Promise`等等）调用，由于这些方法是异步的，会导致生命周期钩子或者事件方法先执行，执行完这些后会将更新队列的 `pending` 状态置为 `false`，这个时候在执行 `setState` 后会导致组件立即更新。从这里也能说明 `setState` 本质并不是异步的，只是模拟了异步的表现。
+  
   ![image-20220118135012122](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202206041455041.png)
   
   正确方法：
@@ -246,7 +257,7 @@ ReactDOM.createProtal(child, container)
       counter: preState.quantity + 1;
   })
   // setTimeout中setState是同步的
-  setTimeout(() => {
+setTimeout(() => {
       // isBatchingUpdates = false
          setState({
           count: this.state.count + 1
@@ -255,7 +266,7 @@ ReactDOM.createProtal(child, container)
   // 自己定义的DOM事件中setState是同步的
   document.body.addEventListener('click', this.bodyClickHandler)
   ```
-
+  
 - state的更新是一个合并的过程
   
   当调用setState修改组件状态时，只需要传入发生改变的state，而不是组件完整的state，因为组件state的更新是一个合并的过程
