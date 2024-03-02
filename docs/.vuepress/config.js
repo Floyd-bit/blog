@@ -104,7 +104,8 @@ module.exports = {
                     { title: '位运算', path: '/note/位运算_new' },
                     { title: 'DFS深度优先搜索', path: '/note/DFS_new' },
                     { title: 'BFS广度优先搜索', path: '/note/BFS_new' },
-                    { title: '特殊题目', path: '/note/特殊题目_new' }
+                    { title: '特殊题目', path: '/note/特殊题目_new' },
+                    { tile: '动态规划', path: '/note/动态规划_new' }
                 ]
             },
             {
