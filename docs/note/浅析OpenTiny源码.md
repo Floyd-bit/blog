@@ -334,6 +334,8 @@ export default {
 
 于是，只要遵循组件库 `class` 的命名规则，用户可以很方便地自定义组件的样式，而无需担心与项目中的自定义样式存在冲突问题。
 
+openTiny组件库严格遵循BEM(block-element-modifier)规范
+
 - **使用 CSS 变量**
 
 为了支持用户灵活地设置组件样式，甚至于实现主题切换功能，组件库的样式一般不会被设定为具体的值。
@@ -358,3 +360,114 @@ export default {
 
 - **单元测试使用繁琐**：单元测试是组件库核心的一项，但是在 WebComponents 中使用单元测试十分复杂。
 
+### 7. 我的贡献
+
+#### 7.1 单元测试
+
+​	openTiny组件库包含`e2e测试`和`单元测试`。e2e测试即端到端测试，是一种`黑盒测试`方法，模拟真实用户进行交互，并测试功能是否达到预期的结果。单元测试是一种`白盒测试`方法，对每个函数进行测试，对给定的输入应该产生预期的输出。在开发阶段引入e2e测试和单元测试并通过github action添加提交代码时的自动测试钩子，保证了组件库的健壮性和可用性。
+
+​	e2e测试使用**Playwright**工具，使用文档的组件实例作为e2e测试用例场景。
+
+​	单元测试使用**Vitest**工具。我为container、tag、wizard、user-head组件添加了单元测试，涉及到的单元测试内容大致包含以下几个方面：
+
+- 界面内容测试：对于slot，通过`expect(wrapper.find('#mine_header').text()).contain('自定义插槽内容')`来判断dom中是否插入内容。
+- 界面样式测试:：如container组件的header-height属性可以设置头部高度，那么测试语句就应该类似于`expect(wrapper.vm.$el.children[0].style.height).toEqual('80px')`。或者说pattern属性可以设置组件的模式，那么就应该去查看dom元素上有没有应有的类选择器。
+- 事件测试：如要测试tag组件的click事件，那么测试语句的逻辑应该是触发该事件并判断事件的回调函数是否被执行。`await wrapper.find('.tiny-tag').trigger('click')` `expect(handleClick).toBeCalled()`
+
+#### 7.2 TS类型补全
+
+补充了tag-group、popconfirm、rate、user-head组件的renderless层的TS类型
+
+善用类型工具ExtractPropTypes、ReturnType\<typeof func>、Pick<Type, 'props' | 'state'>
+
+[💻新组件贡献参考：RFC 骨架屏组件 · opentiny/tiny-vue · Discussion #1334 (github.com)](https://github.com/opentiny/tiny-vue/discussions/1334)
+
+#### 7.2 语法提示插件
+
+json结构设计
+
+检测package.json依赖
+
+hover提示
+
+外链
+
+[组件库设计 | 让你的React组件获得代码补全和属性提示功能 - 掘金 (juejin.cn)](https://juejin.cn/post/7121817655765368845)
+
+[开发者的福利 - NutUI-vscode 智能提示来了 - 掘金 (juejin.cn)](https://juejin.cn/post/7096284896749944840?from=search-suggest)
+
+1. 代码补全(snippets)
+
+   只需在项目中创建`snippets.json`文件，在里面配置snippets就可以
+
+2. 智能提示
+
+   鼠标悬浮在组件标签上时弹框显示组件文档（props、events等），并显示指向官方文档的链接。
+
+   ```js
+   import * as vscode from 'vscode'
+   
+   const compileFiles = ['react', 'typescript', 'javascript', 'javascriptreact', 'typescriptreact'];
+   
+   function providerHover(document: vscode.TextDocument, position: vscode.Position) {}
+   
+   export function activate(context: vscode.ExtensionContext) {
+     context.subscriptions.push(
+       vscode.languages.registerHoverProvider(compileFiles, {
+         provideHover,
+       }),
+     );
+   }
+   
+   function provideHover(document: vscode.TextDocument, position: vscode.Position) {
+     //移入Concis组件Dom，出现介绍
+     const line = document.lineAt(position);
+     let isConcisComponentDom = false;
+     let matchComponent = '';
+     for (let i = 0; i < componentList.length; i++) {
+       const component = componentList[i];
+       if (line.text.includes(`<${component}`)) {
+         isConcisComponentDom = true;
+         matchComponent = component;
+       }
+     }
+     if (isConcisComponentDom) {
+       const isCN = vscode.env.language === 'zh-cn';
+       let componentDocPath = '';
+       for (let i = 0; i < matchComponent.length; i++) {
+         const str = matchComponent[i];
+         if (i !== 0 && str.charCodeAt(0) >= 65 && str.charCodeAt(0) <= 90) {
+           componentDocPath += '-';
+         }
+         componentDocPath += str;
+       }
+       let text = isCN
+         ? `查看${matchComponent}组件官方文档\n
+   Concis -> http://react-view-ui.com:92/#/common/${componentDocPath.toLowerCase()}`
+         : `View the official documentation of the Button component\n
+   Concis -> http://react-view-ui.com:92/#/common/${componentDocPath.toLowerCase()}`;
+   
+       return new vscode.Hover(text);
+     }
+   }
+   
+   
+   export function deactivate() {}
+   ```
+
+   ​	首先，通过`document.lineAt`获取代码行，判断Concis组件关键词是否出现在代码内容`line.text`中；
+
+   对满足条件的情况，获取组件线上文档地址，编辑提示的内容信息，对应代码段中的`text`；
+
+   将`text`通过`new vscode.Hover`返回；
+
+   
+
+   ​	在组件标签内输入props时智能提示。对于使用vue3+Volar的组件库来说，只要组件库是使用TS开发并声明了global.d.ts文件，Volar会自动生成组件库的代码提示。
+
+   - VSCode + Volar 通过 ts 类型文件实现相关提示
+   - VSCode + Vetur 通过在组件库构建目录下添加 tags.json 和 attributes.json 实现相关提示
+
+3. 使用工具自动解析组件库文档
+
+   使用markdown-it解析组件库中的md文档，自动生成需要格式的json文件。
