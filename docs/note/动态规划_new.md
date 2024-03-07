@@ -204,6 +204,24 @@ const package = (value, weight, size) => {
 }
 ```
 
+**滚动数组优化** (`倒序遍历`)
+
+​	使用二维数组时递推公式为dp\[i][j] = max(dp\[i - 1][j], dp\[i - 1][j - weight[i]] + value[i])，其实dp\[i]\[j]的状态完全取决于dp\[i-1]，所以只用一维数组就可以解决问题。但是使用滚动数组方法要注意一个问题，就是要**倒序遍历数组**。
+
+```js
+const package = (value, weight, size) => {
+   	// 初始化dp[0] = 0
+    const dp = new Array(size + 1).fill(0);
+    for(let i=0; i<value.length; i++) {
+		// 倒序遍历
+        for(let j=size; j>weight[i]; j--) {
+            dp[j] = Math.max(dp[j], dp[j-weight[i]] + value[i]);
+        }
+    }
+    return dp[size];
+}
+```
+
 ### 10. 编辑距离
 
 给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。

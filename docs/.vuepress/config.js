@@ -44,7 +44,9 @@ module.exports = {
                     { title: '技术分享-前端工程化概述', path: '/note/前端工程化概述' },
                     { title: '技术分享-一次图片性能优化实战', path: '/note/一次图片性能优化实战' },
                     { title: '技术分享-浅析OpenTiny源码', path: '/note/浅析OpenTiny源码' },
-                    { title: '技术分享-跨端技术调研和实践', path: '/note/跨端技术调研和实践' }
+                    { title: '技术分享-跨端技术调研和实践', path: '/note/跨端技术调研和实践' },
+                    { title: '技术分享-基于Nest.js开发的开放地球引擎OGE相关实践', path: '/note/基于Nest.js开发的开放地球引擎OGE相关实践' },
+                    { title: '技术分享-node后端服务开发实践', path: '/note/node后端服务开发实践' }
                 ]
             },
             {
@@ -104,7 +106,8 @@ module.exports = {
                     { title: '位运算', path: '/note/位运算_new' },
                     { title: 'DFS深度优先搜索', path: '/note/DFS_new' },
                     { title: 'BFS广度优先搜索', path: '/note/BFS_new' },
-                    { title: '特殊题目', path: '/note/特殊题目_new' }
+                    { title: '特殊题目', path: '/note/特殊题目_new' },
+                    { title: '动态规划', path: '/note/动态规划_new' }
                 ]
             },
             {

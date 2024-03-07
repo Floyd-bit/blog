@@ -307,7 +307,7 @@ babel-polyfill
 2. Loader和plugin的区别
    
    - loader模块转换器，less->css, 如css-loader、style-loader、babel-loader、file-loader
-   - plugin扩展插件，HtmlWebpackPlugin、DefinePlugin
+   - plugin提供更多功能扩展插件，HtmlWebpackPlugin、DefinePlugin
 
 3. babel 和 webpack的区别
    
@@ -323,7 +323,26 @@ babel-polyfill
 5. 兼容性
    
    - Polyfill：用于实现浏览器并不支持的原生API代码, 如Promise
-   
    - babel：编译一些高级的语法(es6、jsx、vue-template), 编译成需要兼容的浏览器版本js语法. babel通过加入plugin来转换新语法或新的api写法，加入preset-env来转换语法，加入@bable/polyfill来转换新api
-   
    - css样式兼容：Normalize.css
+   
+6. **webpack和vite有什么区别**
+
+   - **编译方式不同**
+
+     **webpack在编译过程中，会将所有模块打包为一个bundle.js文件，然后再运行这个文件。**
+  
+     **vite是bundleless的。在开发模式下，没有打包的步骤，它利用了浏览器的ES Module Imports特性，只有在真正需要时才编译文件。在生产模式下，vite使用Rollup进行打包，提供更好的tree-shaking，代码压缩和性能优化。**
+  
+   - **开发效率不同**
+
+     **webpack的热更新是全量更新，即使修改一个小文件，也会重新编译整个应用，这在大型应用中可能会导致编译速度变慢。**
+
+     **vite的热更新是增量更新，只更新修改的文件，所以即使在大型应用中也能保持极快的编译速度。**
+
+   - **扩展性不同**
+
+     **webpack有着成熟的插件生态，几乎可以实现任何你想要的功能，扩展性非常强。**
+
+     **vite虽然也支持插件，但相比webpack的生态，还有一些距离。**
+
