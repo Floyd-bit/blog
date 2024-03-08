@@ -1,8 +1,6 @@
 ## 浅析OpenTiny源码
 
-![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8e70f07fcc5544b6a7f02c29ad2b911e~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1032&h=477&s=105556&e=png&b=fbfbfb)
-
-
+![image-20240307115847250](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202403071158978.png)
 
 ### 1. 目录结构
 
