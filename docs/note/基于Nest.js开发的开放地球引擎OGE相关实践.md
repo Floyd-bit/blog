@@ -4,9 +4,9 @@
 
 ​	OGE开放地球引擎项目是武汉大学遥感与信息工程学院龚健雅院士团队研发的一个遥感时空信息分析平台。它的核心功能包括`遥感卫星影像检索`、`在线遥感时空数据分析`等，包括`首页`、`资源中心`、`开发中心`、`应用中心`四个模块。其中我主要负责开发中心中的**代码编辑器**、**可视化地球**、**控制台**以及资源中心的**高级检索**页面的开发。下图分别是高级检索页面和开发中心页面：
 
-![img](http://www.openge.org.cn/index/feature/1.jpg)
+![img](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202403071156313.jpeg)
 
-![img](http://www.openge.org.cn/index/feature/3.png)
+![img](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202403071156485.png)
 
 ​	其实在我加入开发之前，遥感团队已经使用vue2开发过一版原型系统。不过初版系统的体验比较糟糕，首次加载时间甚至能达到二十多秒之久，一个原因是他们是使用了**低代码工具**来开发，这样的代码肯定不能保证最佳性能，另外一个很重要的原因是开发中心的python脚本运行环境放在前端用**pyscript**(利用WASM在浏览器提供python runtime)执行，导致需要引入一个**22MB**的依赖。从团队协作和开发体验的角度看，初版系统**没有形成统一的团队规范**且使用JS开发，导致代码管理混乱，代码质量差，这其实也是前端体验不好的一个原因。所以遥感院想要我们来重构一下前端，最主要的目的是优化前端性能，其次也招募了专业的产品经历和UI来重构界面设计。
 
@@ -22,7 +22,7 @@
 
 - CSR
 
-  ![img](https://pic2.zhimg.com/80/v2-5dee5d47309b037da87694c14955dced_720w.webp)
+  ![img](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202403071156707.webp)
 
   ​	CSR是现在主流的前端SPA网页开发模式，它的优点在于可以局部刷新，但缺点在于`白屏问题`和不利于`SEO`。白屏问题是因为CSR首先会请求得到一个空HTML页面，然后再去加载JS和CSS渲染页面。
 
@@ -34,7 +34,7 @@
 
   ​	其实可以将SSR和CSR相结合，**第一次访问页面是服务端渲染，基于第一次访问后续的交互就是 SPA 的效果和体验**，**还不影响SEO 效果**。
 
-  ![img](https://pic1.zhimg.com/80/v2-39a18edb171d4df1b088cd389323e7a8_720w.webp)
+  ![img](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202403071156929.webp)
 
 Next.js提供的渲染策略
 
@@ -62,35 +62,114 @@ Next.js提供的渲染策略
 
 #### 3.1 Monaco实现IDE
 
-
+```js
+monaco.editor.create(editorRef.current!, {
+    language: lang,
+    value,
+    minimap: { enabled: false },
+    formatOnPaste: true,
+	automaticLayout: true,
+});
+```
 
 #### 3.2 LSP实现智能语法补全
 
-可通过`monaco-languageclient`+ `jsonrpc-ws-proxy`+`python-language-server`实现
+​	monaco内置了html、css、json、js/ts的语法提示，通过web worker的形式实现。
+
+```js
+  // json、js、ts语言的webworker
+  self.MonacoEnvironment = {
+    getWorker: (workerId, label) => {
+      if (label === "json") {
+        return new Worker(
+          new URL(
+            "monaco-editor/esm/vs/language/json/json.worker?worker",
+            import.meta.url
+          )
+        );
+      }
+      if (label === "javascript" || label === "typescript") {
+        return new Worker(
+          new URL(
+            "monaco-editor/esm/vs/language/typescript/ts.worker?worker",
+            import.meta.url
+          )
+        );
+      }
+      return new Worker(
+        new URL(
+          "monaco-editor/esm/vs/editor/editor.worker?worker",
+          import.meta.url
+        )
+      );
+    },
+  };
+```
+
+​	对于其他语言的语法提示，则需要结合LSP服务实现。项目中主要编写的代码是python，可通过`monaco-languageclient`+ `jsonrpc-ws-proxy`+`python-language-server`实现。
+
+> [**LSP(Language Server Protocol)** ](https://link.juejin.cn/?target=https%3A%2F%2Fmicrosoft.github.io%2Flanguage-server-protocol%2F)**语言服务协议**，此协议定义了在编辑器或IDE与语言服务器之间使用的通信规范，该语言服务器提供了例如自动补全，转到定义，查找所有引用等的功能
 
 [基于 Monaco Editor & LSP 打造智能 IDE - 掘金 (juejin.cn)](https://juejin.cn/post/7108913087613829151)
+
+​	LSP是基于`JSON-RPC`实现语言服务和编辑器之间通信的，它是一种基于json的跨语言远程过程调用协议。由于浏览器运行在web端无法直接通过rpc与LSP Server通信，所以需要一个代理服务器。monaco-languageclient将数据转换成`jsonrpc`后通过`websocket`发送给`jsonrpc-ws-proxy`，然后代理服务再通过`线程间数据流`的方式进行通信。
+
+![image-20240305235420121](https://picture-1305610595.cos.ap-guangzhou.myqcloud.com/202403071156185.png)
 
 #### 3.3 SEE日志推送
 
 - 轮询
-- websocket
-- SEE
+
+- websocket：全双工通信，利用HTTP简历连接，建立连接时状态码为101([`Switching Protocols`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/101))
+
+  ```
+  Upgrade: websocket
+  Connection: Upgrade
+  ```
+
+- SSE: 使用HTTP，相对轻量级。服务器向浏览器发送的 SSE 数据，必须是 UTF-8 编码的文本，具有如下的 HTTP 头信息。
+
+  ```
+  Content-Type: text/event-stream
+  Cache-Control: no-cache
+  Connection: keep-alive
+  ```
+
+  ```javascript
+  source.onopen = function (event) {
+    // ...
+  };
+  
+  source.onmessage = function (event) {
+    var data = event.data;
+    // handle message
+  };
+  ```
 
 ### 4. Cesium 三维地球
 
-图层
+​	代码编写完成后请求服务端，后端新建python子进程执行代码并返回DAG的id和中心点坐标，调用cesiumViewer.camera.flyTo方法移动相机视角到相应的位置和高度，然后调用postSpatialAndLevel方法向后端发送当前视图的范围和相机的高度层级以及相应的DAG id去请求图层并渲染。
 
-天地图key
+请求防抖：通过Cesium.ScreenSpaceEventHandler监听鼠标滚轮事件以及鼠标松开事件，并加入防抖机制，在试图范围和相机高度变化时调用postSpatialAndLevel方法
 
-上图：WSTM、图片
+图层渲染：图层包括`TMS`（瓦片地图服务）图层和`矢量`图层，它们分别对应了**Cesium.ImageryProvider**的不同子类。
 
-请求防抖
+基本图层：使用天地图服务，并用**WebMapTileServiceImageryProvider**添加到Cesium，并实现**地图/影像**的切换
 
-webwoker GIS计算
+webwoker GIS计算：
+
+- 获取分辨率：获取画布中心两个像素的地理坐标，计算实际距离
+- 获取层级：获取camera高度，给定一系列固定值映射
 
 ### 5. 其他
 
-docked-layout  ref + useimperative  dynamic
+rc-dock可拖拽窗口组件，懒加载（dynamic动态导入，仅在客户端加载，在tab激活时再去加载组件）
+
+`forwardRef` +  `useImperativeHandle`：
+
+​	React 组件间通讯一直没有特别好的方式，官方建议一旦遇到这种情况就需要**把数据/方法提升到父组件，或使用全局状态管理**，但是如果一个数据/方法**只在组件内部使用**，和组件封装在一起其实是更好的设计模式。
+
+​	有什么方式既能把组件内部逻辑封装在组件内部，同时又能暴露组件内部的数据/方法给外部访问呢？ 那就是使用 `useImperativeHandle` + `forwardRef`  。
 
 immer.js
 
