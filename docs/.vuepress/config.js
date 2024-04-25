@@ -4,7 +4,7 @@
  * @Author: 赵卓轩
  * @Date: 2022-05-28 16:36:20
  * @LastEditors: 赵卓轩
- * @LastEditTime: 2024-03-01 16:04:51
+ * @LastEditTime: 2024-04-25 17:00:15
  */
 module.exports = {
     base: '/blog/',
@@ -47,6 +47,19 @@ module.exports = {
                     { title: '技术分享-跨端技术调研和实践', path: '/note/跨端技术调研和实践' },
                     { title: '技术分享-基于Nest.js开发的开放地球引擎OGE相关实践', path: '/note/基于Nest.js开发的开放地球引擎OGE相关实践' },
                     { title: '技术分享-node后端服务开发实践', path: '/note/node后端服务开发实践' }
+                ]
+            },
+            {
+                title: '面经',
+                path: '/note/面经/微信小游戏_一面',
+                children: [
+                    { title: '微信小游戏_一面', path: '/note/面经/微信小游戏_一面' },
+                    { title: '微信小游戏_二面', path: '/note/面经/微信小游戏_二面' },
+                    { title: '腾讯安全_一面', path: '/note/面经/腾讯安全_一面' },
+                    { title: '腾讯安全_二面', path: '/note/面经/腾讯安全_二面' },
+                    { title: '美团一面', path: '/note/面经/美团一面' },
+                    { title: '美团二面', path: '/note/面经/美团二面' },
+                    { title: '京东一面', path: '/note/面经/京东一面' }
                 ]
             },
             {
