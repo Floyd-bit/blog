@@ -119,24 +119,57 @@ monaco.editor.create(editorRef.current!, {
 #### 3.3 SEE日志推送
 
 - 轮询
-- websocket
-- SEE
+
+- websocket：全双工通信，利用HTTP简历连接，建立连接时状态码为101([`Switching Protocols`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/101))
+
+  ```
+  Upgrade: websocket
+  Connection: Upgrade
+  ```
+
+- SSE: 使用HTTP，相对轻量级。服务器向浏览器发送的 SSE 数据，必须是 UTF-8 编码的文本，具有如下的 HTTP 头信息。
+
+  ```
+  Content-Type: text/event-stream
+  Cache-Control: no-cache
+  Connection: keep-alive
+  ```
+
+  ```javascript
+  source.onopen = function (event) {
+    // ...
+  };
+  
+  source.onmessage = function (event) {
+    var data = event.data;
+    // handle message
+  };
+  ```
 
 ### 4. Cesium 三维地球
 
-图层
+​	代码编写完成后请求服务端，后端新建python子进程执行代码并返回DAG的id和中心点坐标，调用cesiumViewer.camera.flyTo方法移动相机视角到相应的位置和高度，然后调用postSpatialAndLevel方法向后端发送当前视图的范围和相机的高度层级以及相应的DAG id去请求图层并渲染。
 
-天地图key
+请求防抖：通过Cesium.ScreenSpaceEventHandler监听鼠标滚轮事件以及鼠标松开事件，并加入防抖机制，在试图范围和相机高度变化时调用postSpatialAndLevel方法
 
-上图：WSTM、图片
+图层渲染：图层包括`TMS`（瓦片地图服务）图层和`矢量`图层，它们分别对应了**Cesium.ImageryProvider**的不同子类。
 
-请求防抖
+基本图层：使用天地图服务，并用**WebMapTileServiceImageryProvider**添加到Cesium，并实现**地图/影像**的切换
 
-webwoker GIS计算
+webwoker GIS计算：
+
+- 获取分辨率：获取画布中心两个像素的地理坐标，计算实际距离
+- 获取层级：获取camera高度，给定一系列固定值映射
 
 ### 5. 其他
 
-docked-layout  ref + useimperative  dynamic
+rc-dock可拖拽窗口组件，懒加载（dynamic动态导入，仅在客户端加载，在tab激活时再去加载组件）
+
+`forwardRef` +  `useImperativeHandle`：
+
+​	React 组件间通讯一直没有特别好的方式，官方建议一旦遇到这种情况就需要**把数据/方法提升到父组件，或使用全局状态管理**，但是如果一个数据/方法**只在组件内部使用**，和组件封装在一起其实是更好的设计模式。
+
+​	有什么方式既能把组件内部逻辑封装在组件内部，同时又能暴露组件内部的数据/方法给外部访问呢？ 那就是使用 `useImperativeHandle` + `forwardRef`  。
 
 immer.js
 
