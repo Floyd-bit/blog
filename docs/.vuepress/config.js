@@ -4,7 +4,7 @@
  * @Author: 赵卓轩
  * @Date: 2022-05-28 16:36:20
  * @LastEditors: 赵卓轩
- * @LastEditTime: 2024-04-25 17:00:15
+ * @LastEditTime: 2024-05-06 17:47:43
  */
 module.exports = {
     base: '/blog/',
@@ -59,7 +59,11 @@ module.exports = {
                     { title: '腾讯安全_二面', path: '/note/面经/腾讯安全_二面' },
                     { title: '美团一面', path: '/note/面经/美团一面' },
                     { title: '美团二面', path: '/note/面经/美团二面' },
-                    { title: '京东一面', path: '/note/面经/京东一面' }
+                    { title: '京东一面', path: '/note/面经/京东一面' },
+                    { title: '小米自动驾驶一面', path: '/note/面经/小米自动驾驶一面' },
+                    { title: '小米自动驾驶二面', path: '/note/面经/小米自动驾驶二面' },
+                    { title: '携程一面', path: '/note/面经/携程一面' },
+                    { title: '携程二面', path: '/note/面经/携程二面' }
                 ]
             },
             {
