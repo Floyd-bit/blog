@@ -38,15 +38,15 @@ module.exports = {
         sidebar: [
             {
                 title: '技术博客',
-                path: '/note/前端框架概况',
+                path: '/note/技术博客/前端框架概况',
                 children: [
-                    { title: '技术分享-前端框架概况', path: '/note/前端框架概况' },
-                    { title: '技术分享-前端工程化概述', path: '/note/前端工程化概述' },
-                    { title: '技术分享-一次图片性能优化实战', path: '/note/一次图片性能优化实战' },
-                    { title: '技术分享-浅析OpenTiny源码', path: '/note/浅析OpenTiny源码' },
-                    { title: '技术分享-跨端技术调研和实践', path: '/note/跨端技术调研和实践' },
-                    { title: '技术分享-基于Nest.js开发的开放地球引擎OGE相关实践', path: '/note/基于Nest.js开发的开放地球引擎OGE相关实践' },
-                    { title: '技术分享-node后端服务开发实践', path: '/note/node后端服务开发实践' }
+                    { title: '技术分享-前端框架概况', path: '/note/技术博客/前端框架概况' },
+                    { title: '技术分享-前端工程化概述', path: '/note/技术博客/前端工程化概述' },
+                    { title: '技术分享-一次图片性能优化实战', path: '/note/技术博客/一次图片性能优化实战' },
+                    { title: '技术分享-浅析OpenTiny源码', path: '/note/技术博客/浅析OpenTiny源码' },
+                    { title: '技术分享-跨端技术调研和实践', path: '/note/技术博客/跨端技术调研和实践' },
+                    { title: '技术分享-基于Nest.js开发的开放地球引擎OGE相关实践', path: '/note/技术博客/基于Nest.js开发的开放地球引擎OGE相关实践' },
+                    { title: '技术分享-node后端服务开发实践', path: '/note/技术博客/node后端服务开发实践' }
                 ]
             },
             {
